@@ -10,13 +10,20 @@ const INITIAL_STATE =  {
 };
 
 const taskReducer = (state = INITIAL_STATE,  action) => {
+    let {current, possible} = state;
+    let newState = {};
     switch (action.type) {
         case 'ADD_TASK':
-            const {current, possible} = state;
             possible.push(action.payload);
-            const newState = {current, possible };
+            newState = {current, possible };
             console.log(newState);
             return newState;
+
+        case 'REMOVE_TASK':
+            possible.splice(action.payload, 1);
+            newState = {current, possible};
+            return newState; 
+
         default:
             return state;
     }

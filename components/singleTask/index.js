@@ -7,13 +7,10 @@ import {
     StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { removeTask } from '../../action';
 
 import CheckBox from 'react-native-check-box';
-
-const item = [
-    'First',
-    'Second',
-];
 
 class singleTask extends Component {
 
@@ -21,7 +18,8 @@ class singleTask extends Component {
         return (
             <FlatList
                 data={this.props.possible}
-                renderItem={({item}) => (
+                keyExtractor = {(item, index) => index.toString()}
+                renderItem={({item, index}) => (
                     <View style={styles.checkboxWrapper}>
                         <View
                             style={styles.statusColor}></View>
@@ -35,10 +33,11 @@ class singleTask extends Component {
                         />
                         <Button
                             title="Delete Icon"
-                            onPress={() => { console.log('dhaniya clicked') }}
+                            onPress={() => {this.props.removeTask(index)}}
                             style={styles.closeButton} />
                     </View>
-                )} />
+                )
+            } />
         )
     }
 }
@@ -68,4 +67,10 @@ const mapStateToProps = (state) => {
     return task;
 }
 
-export default connect(mapStateToProps)(singleTask);
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        removeTask,
+    }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(singleTask);

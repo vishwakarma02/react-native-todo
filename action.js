@@ -4,3 +4,10 @@ export const addTask = task => (
         payload: task,
     }
 )
+
+export const removeTask = taskIndex => (
+    {
+        type: 'REMOVE_TASK',
+        payload: taskIndex
+    }
+)
