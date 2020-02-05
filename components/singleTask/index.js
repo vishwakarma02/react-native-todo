@@ -6,6 +6,8 @@ import {
     View,
     StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux';
+
 import CheckBox from 'react-native-check-box';
 
 const item = [
@@ -13,11 +15,12 @@ const item = [
     'Second',
 ];
 
-export default class singleTask extends Component {
+class singleTask extends Component {
+
     render() {
         return (
             <FlatList
-                data={item}
+                data={this.props.possible}
                 renderItem={({item}) => (
                     <View style={styles.checkboxWrapper}>
                         <View
@@ -58,4 +61,11 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         width: 8,
     }
-})
+});
+
+const mapStateToProps = (state) => {
+    const {task} = state;
+    return task;
+}
+
+export default connect(mapStateToProps)(singleTask);

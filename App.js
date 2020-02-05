@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import taskReducer from './reducer';
+
 import { StyleSheet,
           Text,
           View,
@@ -15,6 +19,8 @@ import Statusbar from './layout/statusbar';
 import Header from './layout/header';
 import SingleTask from './components/singleTask';
 
+const store = createStore(taskReducer);
+
 export default class App extends Component {
 
   state = {
@@ -29,34 +35,37 @@ export default class App extends Component {
       'nunito': require('./assets/fonts/Nunito/Nunito-Regular.ttf'),
       'nunito-bold': require('./assets/fonts/Nunito/Nunito-Bold.ttf'),
     });
+
   }
 
 
   render() {
     return (
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior="padding">
-        <Statusbar />
-        <Header />
-        <View style={styles.outerListWrapper}>
+      <Provider store={store}>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior="padding">
+          <Statusbar />
+          <Header />
+          <View style={styles.outerListWrapper}>
             <SingleTask />
-        </View>
+          </View>
 
-        <TextInput
-          editable
-          ref={input => { this.textInput = input }}
-          placeholder={'Add new task'}
-          onChangeText={text => this.setState({
-            currentInput: text,
-            currentId: this.state.data.length + 1
-          })}
-        />
-        <Button
-          title="Add"
-          onPress={() => this.addNewTask()}
-        />
-      </KeyboardAvoidingView>
+          <TextInput
+            editable
+            ref={input => { this.textInput = input }}
+            placeholder={'Add new task'}
+            onChangeText={text => this.setState({
+              currentInput: text,
+              currentId: this.state.data.length + 1
+            })}
+          />
+          <Button
+            title="Add"
+            onPress={() => this.addNewTask()}
+          />
+        </KeyboardAvoidingView>
+      </Provider>
     );
   }
 }
