@@ -3,13 +3,15 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import taskReducer from './reducer';
 
-import { StyleSheet,
-          Text,
-          View,
-          FlatList,
-          Button, 
-          TextInput,
-          KeyboardAvoidingView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Button,
+  TextInput,
+  KeyboardAvoidingView
+} from 'react-native';
 
 import * as Font from 'expo-font';
 
@@ -18,6 +20,7 @@ import CheckBox from 'react-native-check-box';
 import Statusbar from './layout/statusbar';
 import Header from './layout/header';
 import SingleTask from './components/singleTask';
+import TaskInput from './components/taskInput';
 
 const store = createStore(taskReducer);
 
@@ -51,19 +54,7 @@ export default class App extends Component {
             <SingleTask />
           </View>
 
-          <TextInput
-            editable
-            ref={input => { this.textInput = input }}
-            placeholder={'Add new task'}
-            onChangeText={text => this.setState({
-              currentInput: text,
-              currentId: this.state.data.length + 1
-            })}
-          />
-          <Button
-            title="Add"
-            onPress={() => this.addNewTask()}
-          />
+          <TaskInput />
         </KeyboardAvoidingView>
       </Provider>
     );
