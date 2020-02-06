@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { removeTask } from '../../action';
+import { toggleCheckedStatus, removeTask } from '../../action';
 
 import CheckBox from 'react-native-check-box';
 
@@ -17,7 +17,7 @@ class singleTask extends Component {
     render() {
         return (
             <FlatList
-                data={this.props.possible}
+                data={this.props.taskList}
                 keyExtractor = {(item, index) => index.toString()}
                 renderItem={({item, index}) => (
                     <View style={styles.checkboxWrapper}>
@@ -25,14 +25,14 @@ class singleTask extends Component {
                             style={styles.statusColor}></View>
                         <CheckBox
                             checkBoxColor='#FFF'
-                            onClick={() => { console.log('dhaniya') }}
-                            isChecked={true}
-                            rightText={item}
+                            onClick={() => {this.props.toggleCheckedStatus(index)}}
+                            isChecked={item.status}
+                            rightText={item.task}
                             style={styles.checkBox}
                             rightTextStyle={{ color: '#FFF' }}
                         />
                         <Button
-                            title="Delete Icon"
+                            title="X"
                             onPress={() => {this.props.removeTask(index)}}
                             style={styles.closeButton} />
                     </View>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         color: '#FFF',
         flexDirection: 'row',
         borderWidth: 1,
-        borderColor: '#FFF',
+        borderColor: '#f3d008',
         padding: 8,
         marginBottom: 16
     },
@@ -56,9 +56,12 @@ const styles = StyleSheet.create({
         padding: 10
     },
     statusColor: {
-        backgroundColor: '#FFF',
+        backgroundColor: '#f3d008',
         borderRadius: 2,
         width: 8,
+    },
+    closeButton: {
+        backgroundColor: '#f3d008'
     }
 });
 

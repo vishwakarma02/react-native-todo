@@ -5,6 +5,13 @@ export const addTask = task => (
     }
 )
 
+export const toggleCheckedStatus = taskIndex => (
+    {
+        type: 'CHECK_TASK',
+        payload: taskIndex
+    }
+)
+
 export const removeTask = taskIndex => (
     {
         type: 'REMOVE_TASK',
