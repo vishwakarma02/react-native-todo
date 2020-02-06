@@ -32,9 +32,8 @@ class singleTask extends Component {
                             rightTextStyle={{ color: '#FFF' }}
                         />
                         <Button
-                            title="X"
-                            onPress={() => {this.props.removeTask(index)}}
-                            style={styles.closeButton} />
+                            title="Remove"
+                            onPress={() => {this.props.removeTask(index)}} />
                     </View>
                 )
             } />
@@ -48,6 +47,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderWidth: 1,
         borderColor: '#f3d008',
+        borderRadius: 4,
         padding: 8,
         marginBottom: 16
     },
@@ -60,9 +60,6 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         width: 8,
     },
-    closeButton: {
-        backgroundColor: '#f3d008'
-    }
 });
 
 const mapStateToProps = (state) => {
@@ -72,6 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
+        toggleCheckedStatus,
         removeTask,
     }, dispatch)
 )

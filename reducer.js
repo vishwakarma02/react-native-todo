@@ -3,14 +3,14 @@ import {combineReducers} from 'redux';
 const INITIAL_STATE =  {
     taskList: [
         {
-            task: 'First Store Item',
+            task: 'First Task',
             status: true
         },{
-            task: 'second Store Item',
+            task: 'second task',
             status: false
         },{
-            task: 'third Store Item',
-            status: true
+            task: 'third task',
+            status: false
         },
     ]
 };
@@ -31,7 +31,8 @@ const taskReducer = (state = INITIAL_STATE,  action) => {
                 }
             });
             newState = {taskList};
-            return newState;
+            return JSON.parse(JSON.stringify(newState)); 
+            // return newState;
 
         case 'REMOVE_TASK':
             taskList.splice(action.payload, 1);
